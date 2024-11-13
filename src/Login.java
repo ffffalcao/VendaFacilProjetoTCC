@@ -29,7 +29,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel1.setText("Venda Fácil");
+        jLabel1.setText("Venda Facil");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 200, 40));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N

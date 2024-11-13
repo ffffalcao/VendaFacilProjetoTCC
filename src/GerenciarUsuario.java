@@ -33,6 +33,18 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         }
     }
 
+    private void limparCampos() {
+        txtNome.setText("");
+        txtTelefone.setText("");
+        txtEmail.setText("");
+        txtEndereco.setText("");
+        txtSenha.setText("");
+        comboBoxStatus.setSelectedIndex(0);
+        appusuarioPk = 0;
+        btnExcluir.setEnabled(false);
+        btnSalvar.setEnabled(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,10 +70,11 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         txtSenha = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
-        btnAtualizar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         btnReiniciar = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        btnAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(850, 600));
@@ -75,7 +88,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("Gerenciar Usuario");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 340, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 340, -1));
 
         tabelaUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,14 +159,14 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         });
         getContentPane().add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 80, 21));
 
-        btnAtualizar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnAtualizar.setText("Atualizar");
-        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 430, 80, 21));
+        getContentPane().add(btnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 80, 21));
 
         btnReiniciar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnReiniciar.setText("Reiniciar");
@@ -162,7 +175,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
                 btnReiniciarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 80, 21));
+        getContentPane().add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 80, 21));
 
         btnFechar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnFechar.setText("Fechar");
@@ -171,8 +184,17 @@ public class GerenciarUsuario extends javax.swing.JFrame {
                 btnFecharActionPerformed(evt);
             }
         });
-        getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 80, 21));
+        getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 470, 80, 21));
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        btnAtualizar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 430, 80, 21));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -188,7 +210,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        btnAtualizar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_formComponentShown
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -222,36 +244,33 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-
-        String nome = txtNome.getText();
-        String numeroTelefone = txtTelefone.getText();
-        String email = txtEmail.getText();
-        String endereco = txtEndereco.getText();
-        String status = (String) comboBoxStatus.getSelectedItem();
-
-        if (validarCampos("edit")) {
-            JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios");
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (appusuarioPk == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado para exclusão.");
         } else {
-            try (Connection connection = ProvedorConexao.connect()) {
-                String query = ("update appusuario set nome=?, numeroTelefone=?, email=?, endereco=?, status=? where appusuario_pk=?");
-                PreparedStatement ps = connection.prepareStatement(query);
-                ps.setString(1, nome);
-                ps.setString(2, numeroTelefone);
-                ps.setString(3, email);
-                ps.setString(4, endereco);
-                ps.setString(5, status);
-                ps.setInt(6, appusuarioPk);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Usuario Atualizado com Sucesso");
-                setVisible(false);
-                new GerenciarUsuario().setVisible(true);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+            int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir o usuário?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                try (Connection connection = ProvedorConexao.connect()) {
+                    String query = "DELETE FROM appusuario WHERE appusuario_pk=?";
+                    PreparedStatement ps = connection.prepareStatement(query);
+                    ps.setInt(1, appusuarioPk);
+                    int rowsAffected = ps.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso.");
+                        DefaultTableModel model = (DefaultTableModel) tabelaUsuario.getModel();
+                        int selectedRow = tabelaUsuario.getSelectedRow();
+                        model.removeRow(selectedRow);  // Remove a linha da tabela
+                        limparCampos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao excluir o usuário.");
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
             }
         }
-
-    }//GEN-LAST:event_btnAtualizarActionPerformed
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         setVisible(false);
@@ -295,8 +314,37 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         txtSenha.setBackground(Color.DARK_GRAY);
 
         btnSalvar.setEnabled(false);
-        btnAtualizar.setEnabled(true);
+        btnExcluir.setEnabled(true);
     }//GEN-LAST:event_tabelaUsuarioMouseClicked
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        String nome = txtNome.getText();
+        String numeroTelefone = txtTelefone.getText();
+        String email = txtEmail.getText();
+        String endereco = txtEndereco.getText();
+        String status = (String) comboBoxStatus.getSelectedItem();
+
+        if (validarCampos("edit")) {
+            JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios");
+        } else {
+            try (Connection connection = ProvedorConexao.connect()) {
+                String query = ("update appusuario set nome=?, numeroTelefone=?, email=?, endereco=?, status=? where appusuario_pk=?");
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setString(1, nome);
+                ps.setString(2, numeroTelefone);
+                ps.setString(3, email);
+                ps.setString(4, endereco);
+                ps.setString(5, status);
+                ps.setInt(6, appusuarioPk);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Usuario Atualizado com Sucesso");
+                setVisible(false);
+                new GerenciarUsuario().setVisible(true);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,6 +383,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnSalvar;

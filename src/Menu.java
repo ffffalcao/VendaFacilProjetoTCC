@@ -17,6 +17,8 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        setLocationRelativeTo(null);
+
     }
     
     public Menu(String cargo) {
@@ -65,11 +67,21 @@ public class Menu extends javax.swing.JFrame {
         btnCategoria.setMaximumSize(new java.awt.Dimension(104, 24));
         btnCategoria.setMinimumSize(new java.awt.Dimension(104, 24));
         btnCategoria.setPreferredSize(new java.awt.Dimension(104, 24));
+        btnCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriaActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 140, 50));
 
         btnProduto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Product--Streamline-Carbon.png"))); // NOI18N
         btnProduto.setText("Produto");
+        btnProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProdutoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 140, 50));
 
         btnCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -113,7 +125,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        // TODO add your handling code here:
+        new GerenciarCliente().setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -123,6 +135,14 @@ public class Menu extends javax.swing.JFrame {
             new Login().setVisible(true);
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
+        new GerenciarCategoria().setVisible(true);
+    }//GEN-LAST:event_btnCategoriaActionPerformed
+
+    private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
+        new GerenciarProduto().setVisible(true);
+    }//GEN-LAST:event_btnProdutoActionPerformed
 
     /**
      * @param args the command line arguments
