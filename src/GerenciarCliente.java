@@ -24,6 +24,9 @@ public class GerenciarCliente extends javax.swing.JFrame {
 
     private void limparCampos() {
         txtNome.setText("");
+        txtEmail.setText("");
+        txtTelefone.setText("");
+        clientePk = 0;
     }
     
     @SuppressWarnings("unchecked")

@@ -49,6 +49,11 @@ public class GerenciarProduto extends javax.swing.JFrame {
 
     private void limparCampos() {
         txtNome.setText("");
+        txtQuantidade.setText("");
+        txtPreco.setText("");
+        txtDescricao.setText("");
+        comboBoxCategoria.setSelectedIndex(0);
+        produtoPk = 0;
     }
 
     @SuppressWarnings("unchecked")

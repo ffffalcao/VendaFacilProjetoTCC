@@ -13,7 +13,8 @@ public class tables {
             //st.executeUpdate("insert into appusuario (cargo, nome, numeroTelefone, email, senha, endereco, status) values('SuperAdmin', 'Super Admin', '12345', 'superadmin@testemail.com', 'admin', 'Brasil', 'Ativo')");
             //st.executeUpdate("create table categoria (categoria_pk INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(200))");
             //st.executeUpdate("create table produto (produto_pk INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(200), quantidade int, preco int, descricao VARCHAR(200), categoria_fk int)");
-            st.executeUpdate("create table cliente (cliente_pk INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(200), telefone VARCHAR(200), email VARCHAR(200))");
+            //st.executeUpdate("create table cliente (cliente_pk INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(200), telefone VARCHAR(200), email VARCHAR(200))");
+            st.executeUpdate("create table detalhePedido (pedido_pk INTEGER PRIMARY KEY AUTOINCREMENT, idPedido VARCHAR(200), cliente_fk INTEGER, dataPedido VARCHAR(200), totalPago INTEGER)");
             JOptionPane.showMessageDialog(null, "Tabela criada com sucesso");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

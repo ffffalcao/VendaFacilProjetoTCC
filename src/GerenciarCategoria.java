@@ -41,6 +41,7 @@ public class GerenciarCategoria extends javax.swing.JFrame {
 
     private void limparCampos() {
         txtNome.setText("");
+        categoriaPk = 0;
     }
 
     @SuppressWarnings("unchecked")

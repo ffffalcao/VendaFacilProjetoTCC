@@ -97,6 +97,11 @@ public class Menu extends javax.swing.JFrame {
         btnPedido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Shopping-Cart--Streamline-Carbon.png"))); // NOI18N
         btnPedido.setText("Pedido");
+        btnPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 140, 50));
 
         btnVerPedidos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -143,6 +148,10 @@ public class Menu extends javax.swing.JFrame {
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         new GerenciarProduto().setVisible(true);
     }//GEN-LAST:event_btnProdutoActionPerformed
+
+    private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
+        new GerenciarPedido().setVisible(true);
+    }//GEN-LAST:event_btnPedidoActionPerformed
 
     /**
      * @param args the command line arguments
