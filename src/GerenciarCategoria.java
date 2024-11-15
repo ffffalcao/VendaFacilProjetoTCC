@@ -1,5 +1,5 @@
 
-import db.ProvedorConexao;
+import bancoDeDados.ProvedorConexao;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
@@ -48,8 +48,8 @@ public class GerenciarCategoria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -69,13 +69,13 @@ public class GerenciarCategoria extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel1.setText("Gerenciar Categorias");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
+        lblTitulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        lblTitulo.setText("Gerenciar Categorias");
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel2.setText("Nome");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, 190, -1));
+        lblNome.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblNome.setText("Nome");
+        getContentPane().add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, 190, -1));
 
         txtNome.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtNome.addActionListener(new java.awt.event.ActionListener() {
@@ -291,9 +291,9 @@ public class GerenciarCategoria extends javax.swing.JFrame {
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tabelaCategoria;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables

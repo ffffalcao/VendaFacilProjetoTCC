@@ -4,7 +4,7 @@
  */
 package common;
 
-import db.UtilidadeInventario;
+import bancoDeDados.UtilidadeInventario;
 import java.io.File;
 import javax.swing.JOptionPane;
 

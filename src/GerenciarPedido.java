@@ -6,8 +6,8 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import common.abrirPDF;
-import db.ProvedorConexao;
-import db.UtilidadeInventario;
+import bancoDeDados.ProvedorConexao;
+import bancoDeDados.UtilidadeInventario;
 import java.io.FileOutputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -52,34 +52,34 @@ public class GerenciarPedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCliente = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblListaClientes = new javax.swing.JLabel();
+        lblListaProdutos = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaProduto = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
+        lblCarrinho = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaCarrinho = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblClienteSelecionado = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
         txtNomeCliente = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        lblTelefone = new javax.swing.JLabel();
         txtTelefoneCliente = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
         txtEmailCliente = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblProdutoSelecionado = new javax.swing.JLabel();
+        lblNomeProduto = new javax.swing.JLabel();
         txtNomeProduto = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        lblPrecoProduto = new javax.swing.JLabel();
         txtPrecoProduto = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
+        lblDescricaoProduto = new javax.swing.JLabel();
         txtDescricaoProduto = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
+        lblQuantidadeProduto = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
         btnAdicionarAoCarrinho = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
+        lblValorTotal = new javax.swing.JLabel();
         lblPrecoFinalTotal = new javax.swing.JLabel();
         btnSalvarDetalhesPedido = new javax.swing.JButton();
         btnReiniciar = new javax.swing.JButton();
@@ -96,9 +96,9 @@ public class GerenciarPedido extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel1.setText("Gerenciar Pedido");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(495, 16, -1, -1));
+        lblTitulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        lblTitulo.setText("Gerenciar Pedido");
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(495, 16, -1, -1));
 
         tabelaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -117,13 +117,13 @@ public class GerenciarPedido extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 375, 295));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel2.setText("Lista de Clientes");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 76, -1, -1));
+        lblListaClientes.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblListaClientes.setText("Lista de Clientes");
+        getContentPane().add(lblListaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 76, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel3.setText("Lista de Produtos");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 76, -1, -1));
+        lblListaProdutos.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblListaProdutos.setText("Lista de Produtos");
+        getContentPane().add(lblListaProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 76, -1, -1));
 
         tabelaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,9 +142,9 @@ public class GerenciarPedido extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 102, 560, 295));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel4.setText("Carrinho");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 80, -1, -1));
+        lblCarrinho.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblCarrinho.setText("Carrinho");
+        getContentPane().add(lblCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 80, -1, -1));
 
         tabelaCarrinho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,59 +163,59 @@ public class GerenciarPedido extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 100, 375, 295));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel5.setText("Cliente Selecionado:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, -1));
+        lblClienteSelecionado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblClienteSelecionado.setText("Cliente Selecionado:");
+        getContentPane().add(lblClienteSelecionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel6.setText("Nome");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+        lblNome.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblNome.setText("Nome");
+        getContentPane().add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
 
         txtNomeCliente.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         getContentPane().add(txtNomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 375, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel7.setText("Telefone");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
+        lblTelefone.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblTelefone.setText("Telefone");
+        getContentPane().add(lblTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
 
         txtTelefoneCliente.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         getContentPane().add(txtTelefoneCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 375, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel8.setText("Email");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, -1, -1));
+        lblEmail.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblEmail.setText("Email");
+        getContentPane().add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, -1, -1));
 
         txtEmailCliente.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         getContentPane().add(txtEmailCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 375, -1));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel9.setText("Produto Selecionado:");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, -1, -1));
+        lblProdutoSelecionado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblProdutoSelecionado.setText("Produto Selecionado:");
+        getContentPane().add(lblProdutoSelecionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel10.setText("Nome do produto");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, -1, -1));
+        lblNomeProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblNomeProduto.setText("Nome do produto");
+        getContentPane().add(lblNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, -1, -1));
 
         txtNomeProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         getContentPane().add(txtNomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 470, 560, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel11.setText("Preço do produto");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 510, -1, -1));
+        lblPrecoProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPrecoProduto.setText("Preço do produto");
+        getContentPane().add(lblPrecoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 510, -1, -1));
 
         txtPrecoProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         getContentPane().add(txtPrecoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 530, 560, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel12.setText("Descrição do produto");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 570, -1, -1));
+        lblDescricaoProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblDescricaoProduto.setText("Descrição do produto");
+        getContentPane().add(lblDescricaoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 570, -1, -1));
 
         txtDescricaoProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         getContentPane().add(txtDescricaoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 590, 560, -1));
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel13.setText("Quantidade");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 620, -1, -1));
+        lblQuantidadeProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblQuantidadeProduto.setText("Quantidade");
+        getContentPane().add(lblQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 620, -1, -1));
 
         txtQuantidadeProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         getContentPane().add(txtQuantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 640, 560, -1));
@@ -229,9 +229,9 @@ public class GerenciarPedido extends javax.swing.JFrame {
         });
         getContentPane().add(btnAdicionarAoCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 680, 560, -1));
 
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel14.setText("Valor total R$:");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 410, -1, -1));
+        lblValorTotal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblValorTotal.setText("Valor total R$:");
+        getContentPane().add(lblValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 410, -1, -1));
 
         lblPrecoFinalTotal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblPrecoFinalTotal.setText("00000");
@@ -519,24 +519,24 @@ public class GerenciarPedido extends javax.swing.JFrame {
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnSalvarDetalhesPedido;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblCarrinho;
+    private javax.swing.JLabel lblClienteSelecionado;
+    private javax.swing.JLabel lblDescricaoProduto;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblListaClientes;
+    private javax.swing.JLabel lblListaProdutos;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblNomeProduto;
     private javax.swing.JLabel lblPrecoFinalTotal;
+    private javax.swing.JLabel lblPrecoProduto;
+    private javax.swing.JLabel lblProdutoSelecionado;
+    private javax.swing.JLabel lblQuantidadeProduto;
+    private javax.swing.JLabel lblTelefone;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblValorTotal;
     private javax.swing.JTable tabelaCarrinho;
     private javax.swing.JTable tabelaCliente;
     private javax.swing.JTable tabelaProduto;

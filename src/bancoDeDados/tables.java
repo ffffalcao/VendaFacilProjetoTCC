@@ -1,4 +1,4 @@
-package db;
+package bancoDeDados;
 
 import java.sql.*;
 import javax.swing.*;

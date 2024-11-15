@@ -1,5 +1,5 @@
 
-import db.ProvedorConexao;
+import bancoDeDados.ProvedorConexao;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
