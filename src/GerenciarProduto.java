@@ -1,3 +1,4 @@
+// Classe responsável pelo gerenciamento de produtos no sistema, permitindo adicionar, editar, e excluir produtos.
 
 import bancoDeDados.ProvedorConexao;
 import javax.swing.JOptionPane;
@@ -10,11 +11,13 @@ public class GerenciarProduto extends javax.swing.JFrame {
     private int produtoPk = 0;
     private int quantidadeTotal = 0;
 
+// Construtor da classe, inicializa os componentes e define a posição da janela.
     public GerenciarProduto() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
+// Método para buscar todas as categorias do banco de dados e preenchê-las no ComboBox.
     private void getTodasCategorias() {
         try (Connection connection = ProvedorConexao.connect()) {
             Statement st = connection.createStatement();
@@ -29,8 +32,8 @@ public class GerenciarProduto extends javax.swing.JFrame {
         }
     }
 
+// Método para validar se todos os campos obrigatórios foram preenchidos, dependendo do tipo de formulário (edição ou novo cadastro).
     private boolean validarCampos(String formType) {
-        // Verifica se os campos obrigatórios estão preenchidos
         if (txtNome.getText().trim().isEmpty()
                 || txtPreco.getText().trim().isEmpty()
                 || txtDescricao.getText().trim().isEmpty()
@@ -59,6 +62,7 @@ public class GerenciarProduto extends javax.swing.JFrame {
         return false;
     }
 
+// Método para limpar todos os campos do formulário e resetar as variáveis de controle.
     private void limparCampos() {
         txtNome.setText("");
         txtQuantidade.setText("");
@@ -68,6 +72,7 @@ public class GerenciarProduto extends javax.swing.JFrame {
         produtoPk = 0;
     }
 
+// Método gerado automaticamente pela IDE, responsável pela inicialização dos componentes da interface gráfica.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -208,6 +213,7 @@ public class GerenciarProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+// Método executado quando o formulário é exibido, inicializando os dados na tabela de produto.
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         getTodasCategorias();
         DefaultTableModel model = (DefaultTableModel) tabelaProduto.getModel();
@@ -232,6 +238,7 @@ public class GerenciarProduto extends javax.swing.JFrame {
         btnAtualizar.setEnabled(false);
     }//GEN-LAST:event_formComponentShown
 
+// Método acionado quando o botão "Salvar" é clicado. Valida os campos e salva um novo produto no banco de dados.
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nome = txtNome.getText();
         String quantidade = txtQuantidade.getText();
@@ -243,6 +250,7 @@ public class GerenciarProduto extends javax.swing.JFrame {
         if (validarCampos("new")) {
             JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios");
         } else {
+            // Inicia a conexão com o banco de dados e insere o novo produto.
             try (Connection connection = ProvedorConexao.connect()) {
                 String query = ("INSERT INTO produto (nome, quantidade, preco, descricao, categoria_fk) VALUES (?,?,?,?,?)");
                 PreparedStatement ps = connection.prepareStatement(query);
@@ -261,16 +269,18 @@ public class GerenciarProduto extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
-
+//Método acionado quando o botão "Fechar" é clicado. Fecha a tela de gerenciamento de produto.
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnFecharActionPerformed
 
+// Evento de clique do botão "Reiniciar". Reinicializa a tela para seu estado inicial.
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         setVisible(false);
         new GerenciarProduto().setVisible(true);
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
+// Método acionado quando um produto é clicado na tabela. Preenche os campos com os dados do produto selecionado.
     private void tabelaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMouseClicked
         int index = tabelaProduto.getSelectedRow();
         TableModel model = tabelaProduto.getModel();
@@ -312,6 +322,7 @@ public class GerenciarProduto extends javax.swing.JFrame {
         btnAtualizar.setEnabled(true);
     }//GEN-LAST:event_tabelaProdutoMouseClicked
 
+// Método acionado quando o botão "Atualizar" é clicado. Atualiza os detalhes do produto selecionado.
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         String nome = txtNome.getText();
         String quantidade = txtQuantidade.getText();
@@ -323,11 +334,13 @@ public class GerenciarProduto extends javax.swing.JFrame {
         if (validarCampos("edit")) {
             JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios");
         } else {
+            // Inicia a conexão com o banco de dados e atualiza o produto.
             try (Connection connection = ProvedorConexao.connect()) {
                 if (!quantidade.equals("")) {
                     quantidadeTotal = quantidadeTotal + Integer.parseInt(quantidade);
                 };
                 String query = ("UPDATE produto SET nome=?, quantidade=?, preco=?, descricao=?, categoria_fk=? WHERE produto_pk=?");
+                // Atualiza o produto no banco de dados com os novos valores fornecidos.
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, nome);
                 ps.setInt(2, quantidadeTotal);
@@ -345,12 +358,14 @@ public class GerenciarProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+// Método acionado quando o botão "Excluir" é clicado. Exclui o produto selecionado após confirmação.
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (produtoPk == 0) {
             JOptionPane.showMessageDialog(null, "Nenhum produto selecionado para exclusão.");
         } else {
             int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir o usuário?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
+                // Inicia a conexão com o banco de dados e exclui o produto.
                 try (Connection connection = ProvedorConexao.connect()) {
                     String query = "DELETE FROM produto WHERE produto_pk=?";
                     PreparedStatement ps = connection.prepareStatement(query);

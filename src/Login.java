@@ -1,3 +1,4 @@
+// Classe responsável pelo login no sistema. Valida as credenciais do usuário e redireciona para o menu principal.
 
 import bancoDeDados.ProvedorConexao;
 import javax.swing.*;
@@ -9,12 +10,15 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-    private void autenticar(){
+
+// Método responsável por validar as credenciais do usuário. Caso sejam válidas, o usuário é redirecionado para o menu.
+    private void autenticar() {
         String usuario = txtUsuario.getText();
         String senha = txtSenha.getText();
         boolean loginSucesso = false;
 
-        try (Connection connection = ProvedorConexao.connect();){
+// Realiza a consulta ao banco de dados para verificar se o usuário e a senha estão corretos.
+        try (Connection connection = ProvedorConexao.connect();) {
             String sql = "SELECT * FROM appusuario WHERE nome = ? AND senha = ? AND status = 'Ativo'";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, usuario);
@@ -35,8 +39,8 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
 
+// Método gerado automaticamente pela IDE, responsável pela inicialização dos componentes da interface gráfica.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -104,13 +108,14 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//Método acionado quando o botão "Fechar" é clicado. Fecha a tela de login.
     private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
         int a = JOptionPane.showConfirmDialog(null, "Você quer fechar a aplicação?", "Selecione", JOptionPane.YES_NO_OPTION);
         if (a == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_botaoFecharActionPerformed
-
+//Método acionado quando o botão "Fechar" é clicado. Chama o método de autenticação.
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLoginActionPerformed
         autenticar();
     }//GEN-LAST:event_botaoLoginActionPerformed

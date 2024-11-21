@@ -1,3 +1,4 @@
+// Classe responsável pelo gerenciamento de clientes no sistema, permitindo adicionar, editar, e excluir clientes.
 
 import bancoDeDados.ProvedorConexao;
 import javax.swing.table.DefaultTableModel;
@@ -9,12 +10,15 @@ public class GerenciarCliente extends javax.swing.JFrame {
 
     private int clientePk = 0;
 
+// Construtor da classe, inicializa os componentes e define a posição da janela.
     public GerenciarCliente() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
+// Método para validar se os campos foram preenchidos.
     private boolean validarCampos() {
+
         if (!txtNome.getText().equals("") && !txtTelefone.getText().equals("") && !txtEmail.getText().equals("")) {
             return false;
         } else {
@@ -22,13 +26,15 @@ public class GerenciarCliente extends javax.swing.JFrame {
         }
     }
 
+// Método para limpar os campos e resetar a variável de controle.
     private void limparCampos() {
         txtNome.setText("");
         txtEmail.setText("");
         txtTelefone.setText("");
         clientePk = 0;
     }
-    
+
+// Método gerado automaticamente pela IDE, responsável pela inicialização dos componentes da interface gráfica.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -99,11 +105,6 @@ public class GerenciarCliente extends javax.swing.JFrame {
         getContentPane().add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 340, -1));
 
         txtEmail.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
         getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 350, -1));
 
         btnSalvar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -154,21 +155,21 @@ public class GerenciarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
+//Método acionado quando o botão "Fechar" é clicado. Fecha a tela de gerenciamento de clientes.
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnFecharActionPerformed
 
+// Evento de clique do botão "Reiniciar". Reinicializa a tela para seu estado inicial.
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         setVisible(false);
         new GerenciarCliente().setVisible(true);
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
+// Método executado quando o formulário é exibido, inicializando os dados na tabela de cliente.
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         DefaultTableModel model = (DefaultTableModel) tabelaCliente.getModel();
+        // Inicia a conexão com o banco de dados e mostra os dados da tabela.
         try (Connection connection = ProvedorConexao.connect()) {
             String query = "SELECT * FROM cliente";
             Statement st = connection.createStatement();
@@ -182,6 +183,7 @@ public class GerenciarCliente extends javax.swing.JFrame {
         btnAtualizar.setEnabled(false);
     }//GEN-LAST:event_formComponentShown
 
+// Método acionado quando o botão "Salvar" é clicado. Valida os campos e salva um novo cliente no banco de dados.
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nome = txtNome.getText();
         String telefone = txtTelefone.getText();
@@ -189,6 +191,7 @@ public class GerenciarCliente extends javax.swing.JFrame {
         if (validarCampos()) {
             JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios");
         } else {
+            // Inicia a conexão com o banco de dados e insere o novo cliente.
             try (Connection connection = ProvedorConexao.connect()) {
                 String query = ("INSERT INTO cliente (nome, telefone, email) VALUES(?,?,?)");
                 PreparedStatement ps = connection.prepareStatement(query);
@@ -204,7 +207,7 @@ public class GerenciarCliente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
+// Método acionado quando um cliente é clicado na tabela. Preenche os campos com os dados do cliente selecionado.
     private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
         int index = tabelaCliente.getSelectedRow();
         TableModel model = tabelaCliente.getModel();
@@ -224,6 +227,7 @@ public class GerenciarCliente extends javax.swing.JFrame {
         btnAtualizar.setEnabled(true);
     }//GEN-LAST:event_tabelaClienteMouseClicked
 
+// Método acionado quando o botão "Atualizar" é clicado. Atualiza os detalhes do produto selecionado.
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         String nome = txtNome.getText();
         String telefone = txtTelefone.getText();
@@ -231,8 +235,10 @@ public class GerenciarCliente extends javax.swing.JFrame {
         if (validarCampos()) {
             JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios");
         } else {
+            // Inicia a conexão com o banco de dados e atualiza os dados do cliente.
             try (Connection connection = ProvedorConexao.connect()) {
                 String query = ("UPDATE cliente SET nome=?,telefone=?,email=? WHERE cliente_pk=?");
+                // Atualiza o cliente no banco de dados com os novos valores fornecidos.
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, nome);
                 ps.setString(2, telefone);
@@ -247,13 +253,14 @@ public class GerenciarCliente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
-
+// Método acionado quando o botão "Excluir" é clicado. Exclui o cliente selecionado após confirmação.
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (clientePk == 0) {
             JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado para exclusão.");
         } else {
             int confirm = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir o usuário?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
+                // Inicia a conexão com o banco de dados e exclui o cliente.
                 try (Connection connection = ProvedorConexao.connect()) {
                     String query = "DELETE FROM cliente WHERE cliente_pk=?";
                     PreparedStatement ps = connection.prepareStatement(query);

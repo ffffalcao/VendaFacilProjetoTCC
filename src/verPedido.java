@@ -1,3 +1,4 @@
+// Classe para visualizar os pedidos realizados e seus detalhes.
 
 import common.abrirPDF;
 import bancoDeDados.ProvedorConexao;
@@ -8,11 +9,13 @@ import javax.swing.table.TableModel;
 
 public class verPedido extends javax.swing.JFrame {
 
+// Construtor da classe, inicializa os componentes e define a posição da janela.
     public verPedido() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
+// Método gerado automaticamente pela IDE, responsável pela inicialização dos componentes da interface gráfica.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -94,11 +97,12 @@ public class verPedido extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//Método acionado quando o botão "Fechar" é clicado. Fecha a tela de visualização de pedidos.
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnFecharActionPerformed
 
+// Método que é chamado quando o formulário é exibido. Atualiza a lista de clientes e pedidos.
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         DefaultTableModel model = (DefaultTableModel) tabelaListaClientes.getModel();
         try (Connection connection = ProvedorConexao.connect()) {
@@ -114,6 +118,7 @@ public class verPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formComponentShown
 
+// Evento de clique na tabela de clientes. Exibe os pedidos do cliente selecionado.
     private void tabelaListaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaListaClientesMouseClicked
         int index = tabelaListaClientes.getSelectedRow();
         TableModel model = tabelaListaClientes.getModel();
@@ -123,7 +128,7 @@ public class verPedido extends javax.swing.JFrame {
         modelPedido.setRowCount(0);
         try (Connection connection = ProvedorConexao.connect()) {
             Statement st = connection.createStatement();
-            String query = ("SELECT * FROM detalhePedido WHERE cliente_fk="+id+"");
+            String query = ("SELECT * FROM detalhePedido WHERE cliente_fk=" + id + "");
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 modelPedido.addRow(new Object[]{rs.getString("idPedido"), rs.getString("dataPedido"), rs.getString("totalPago")});
@@ -134,12 +139,13 @@ public class verPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaListaClientesMouseClicked
 
+// Evento de clique na tabela de pedidos. Exibe detalhes do pedido selecionado.
     private void tabelaListaPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaListaPedidosMouseClicked
         int index = tabelaListaPedidos.getSelectedRow();
         TableModel model = tabelaListaPedidos.getModel();
         String idPedido = model.getValueAt(index, 0).toString();
         abrirPDF.abrirPorId(idPedido);
-        
+
     }//GEN-LAST:event_tabelaListaPedidosMouseClicked
 
     /**

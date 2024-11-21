@@ -1,3 +1,4 @@
+// Classe para gerenciamento de categorias, permitindo adicionar, editar e excluir.
 
 import bancoDeDados.ProvedorConexao;
 import javax.swing.JOptionPane;
@@ -9,11 +10,13 @@ public class GerenciarCategoria extends javax.swing.JFrame {
 
     private int categoriaPk = 0;
 
+// Construtor da classe, inicializa os componentes e define a posição da janela.
     public GerenciarCategoria() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
+// Método para validar se o campo de nome da categoria foi preenchido.
     private boolean validarCampos() {
         if (!txtNome.getText().equals("")) {
             return false;
@@ -22,6 +25,7 @@ public class GerenciarCategoria extends javax.swing.JFrame {
         }
     }
 
+// Método para atualizar a tabela de categorias com os dados do banco de dados.
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) tabelaCategoria.getModel();
 
@@ -39,11 +43,13 @@ public class GerenciarCategoria extends javax.swing.JFrame {
         }
     }
 
+// Método para limpar o campo de nome e resetar a variável de controle.
     private void limparCampos() {
         txtNome.setText("");
         categoriaPk = 0;
     }
 
+// Método gerado automaticamente pela IDE, responsável pela inicialização dos componentes da interface gráfica.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -78,11 +84,6 @@ public class GerenciarCategoria extends javax.swing.JFrame {
         getContentPane().add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, 190, -1));
 
         txtNome.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
-            }
-        });
         getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 350, -1));
 
         btnSalvar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -150,15 +151,13 @@ public class GerenciarCategoria extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+// Método executado quando o formulário é exibido, inicializando os dados na tabela de categoria.
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         atualizarTabela();
         btnAtualizar.setEnabled(false);
     }//GEN-LAST:event_formComponentShown
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
-
+// Evento de clique do botão "Salvar". Realiza a inserção de uma nova categoria no banco de dados.    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nome = txtNome.getText();
         if (validarCampos()) {
@@ -179,6 +178,7 @@ public class GerenciarCategoria extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+// Evento de clique do botão "Excluir". Remove a categoria selecionada do banco de dados.
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (categoriaPk == 0) {
             JOptionPane.showMessageDialog(null, "Nenhuma categoria selecionada para exclusão.");
@@ -207,15 +207,18 @@ public class GerenciarCategoria extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+// Evento de clique do botão "Reiniciar". Reinicializa a tela para seu estado inicial.
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         setVisible(false);
         new GerenciarCategoria().setVisible(true);
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
+//Método acionado quando o botão "Fechar" é clicado. Fecha a tela de gerenciamento de categorias.
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnFecharActionPerformed
 
+// Evento de clique do botão "Atualizar". Atualiza o nome da categoria selecionada no banco de dados.
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         String nome = txtNome.getText();
         if (validarCampos()) {
@@ -237,6 +240,7 @@ public class GerenciarCategoria extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+// Método acionado quando uma categoria é clicada na tabela. Preenche os campos com os dados da categoria selecionada.
     private void tabelaCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCategoriaMouseClicked
         int index = tabelaCategoria.getSelectedRow();
         TableModel model = tabelaCategoria.getModel();

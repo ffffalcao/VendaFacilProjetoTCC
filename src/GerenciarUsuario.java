@@ -1,3 +1,4 @@
+// Classe para gerenciamento dos usuários do sistema, incluindo cadastro e atualização.
 
 import bancoDeDados.ProvedorConexao;
 import java.awt.Color;
@@ -10,11 +11,13 @@ public class GerenciarUsuario extends javax.swing.JFrame {
 
     private int appusuarioPk = 0;
 
+// Construtor da classe, inicializa os componentes e define a posição da janela.
     public GerenciarUsuario() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
+// Método para validar os campos do formulário antes de salvar ou atualizar um usuário
     private boolean validarCampos(String formType) {
         if (formType.equals("edit") && !txtNome.getText().equals("") && !txtTelefone.getText().equals("") && !txtEmail.getText().equals("") && !txtEndereco.getText().equals("")) {
             return false;
@@ -25,6 +28,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         }
     }
 
+// Método para limpar os campos do formulário após uma operação
     private void limparCampos() {
         txtNome.setText("");
         txtTelefone.setText("");
@@ -37,6 +41,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         btnSalvar.setEnabled(true);
     }
 
+// Método gerado automaticamente pela IDE, responsável pela inicialização dos componentes da interface gráfica.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -186,6 +191,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+// Método executado quando o formulário é exibido, inicializando os dados na tabela de usuário.
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         DefaultTableModel model = (DefaultTableModel) tabelaUsuario.getModel();
         try (Connection connection = ProvedorConexao.connect()) {
@@ -200,6 +206,8 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         btnExcluir.setEnabled(false);
     }//GEN-LAST:event_formComponentShown
 
+// Evento de ação do botão "Salvar"
+// Salva um novo usuário no banco de dados se todos os campos forem preenchidos corretamente
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nome = txtNome.getText();
         String numeroTelefone = txtTelefone.getText();
@@ -231,6 +239,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+// Método acionado quando o botão "Excluir" é clicado. Exclui o usuário selecionado após confirmação.
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (appusuarioPk == 0) {
             JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado para exclusão.");
@@ -259,15 +268,18 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+// Evento de clique do botão "Reiniciar". Reinicializa a tela para seu estado inicial.
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         setVisible(false);
         new GerenciarUsuario().setVisible(true);
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
+//Método acionado quando o botão "Fechar" é clicado. Fecha a tela de gerenciamento de usuários.
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnFecharActionPerformed
 
+// Método acionado quando um usuário é clicado na tabela. Preenche os campos com os dados do usuário selecionado.
     private void tabelaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaUsuarioMouseClicked
         int index = tabelaUsuario.getSelectedRow();
         TableModel model = tabelaUsuario.getModel();
@@ -304,6 +316,7 @@ public class GerenciarUsuario extends javax.swing.JFrame {
         btnExcluir.setEnabled(true);
     }//GEN-LAST:event_tabelaUsuarioMouseClicked
 
+// Método acionado quando o botão "Atualizar" é clicado. Atualiza os detalhes do usuário selecionado.
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         String nome = txtNome.getText();
         String numeroTelefone = txtTelefone.getText();

@@ -1,22 +1,26 @@
+// Classe responsável pelo menu principal do sistema. Oferece as opções para gerenciar usuários, produtos, clientes, etc.
 
 import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
 
+// Construtor padrão da classe Menu, inicializa os componentes da interface e define a posição da janela
     public Menu() {
         initComponents();
         setLocationRelativeTo(null);
 
     }
-    
+
+// Construtor sobrecarregado que oculta o botão de usuário se o cargo for "Admin"
     public Menu(String cargo) {
         initComponents();
         setLocationRelativeTo(null);
-        if(cargo.equals("Admin")){
+        if (cargo.equals("Admin")) {
             btnUsuario.setVisible(false);
         }
     }
 
+// Método gerado automaticamente pela IDE, responsável pela inicialização dos componentes da interface gráfica.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -112,39 +116,53 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+// Ação executada ao clicar no botão "Usuário".
+// Abre a tela de gerenciamento de usuários.
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         new GerenciarUsuario().setVisible(true);
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
+// Ação executada ao clicar no botão "Cliente".
+// Abre a tela de gerenciamento de clientes.
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         new GerenciarCliente().setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 
+// Evento de ação do botão "Logout"
+// Exibe um diálogo de confirmação antes de fazer o logout e retornar à tela de login
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         int a = JOptionPane.showConfirmDialog(null, "Você deseja fazer logout da aplicação?", "Selecione", JOptionPane.YES_NO_OPTION);
-        if (a==0){
+        if (a == 0) {
             setVisible(false);
             new Login().setVisible(true);
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+// Evento de ação do botão "Categoria"
+// Abre o formulário de gerenciamento de categorias
     private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
         new GerenciarCategoria().setVisible(true);
     }//GEN-LAST:event_btnCategoriaActionPerformed
 
+// Ação executada ao clicar no botão "Produto".
+// Abre a tela de gerenciamento de produtos.
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         new GerenciarProduto().setVisible(true);
     }//GEN-LAST:event_btnProdutoActionPerformed
 
+// Ação executada ao clicar no botão "Pedido".
+// Abre a tela de gerenciamento de pedidos.
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
         new GerenciarPedido().setVisible(true);
     }//GEN-LAST:event_btnPedidoActionPerformed
 
+// Ação executada ao clicar no botão "Ver Pedidos".
+// Abre a tela para visualizar os pedidos feitos.
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
         new verPedido().setVisible(true);
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
+// Método principal que cria e exibe a janela do Menu.
     /**
      * @param args the command line arguments
      */

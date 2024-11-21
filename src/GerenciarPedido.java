@@ -1,3 +1,4 @@
+// Classe para gerenciamento de pedidos, incluindo criação, edição e salvamento.
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Paragraph;
@@ -23,11 +24,13 @@ public class GerenciarPedido extends javax.swing.JFrame {
     private int precoFinalTotal = 0;
     private String idPedido = "";
 
+// Construtor da classe, inicializa os componentes e define a posição da janela.
     public GerenciarPedido() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
+// Método para limpar os campos do formulário relacionados ao produto
     private void limparCamposProduto() {
         produtoPk = 0;
         txtNomeProduto.setText("");
@@ -36,10 +39,12 @@ public class GerenciarPedido extends javax.swing.JFrame {
         txtDescricaoProduto.setText("");
     }
 
+// Método para gerar um ID único com base em um prefixo e o tempo atual
     public String getUniqueId(String prefix) {
         return prefix + System.nanoTime();
     }
 
+// Método gerado automaticamente pela IDE, responsável pela inicialização dos componentes da interface gráfica.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -259,6 +264,7 @@ public class GerenciarPedido extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+// Método executado quando o formulário é exibido, inicializando os dados nas tabelas de clientes e produtos
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         txtNomeCliente.setEditable(false);
         txtTelefoneCliente.setEditable(false);
@@ -288,15 +294,18 @@ public class GerenciarPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formComponentShown
 
+//Método acionado quando o botão "Fechar" é clicado. Fecha a tela de gerenciamento de produto.
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnFecharActionPerformed
 
+// Evento de clique do botão "Reiniciar". Reinicializa a tela para seu estado inicial.
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         setVisible(false);
         new GerenciarPedido().setVisible(true);
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
+// Método acionado quando um cliente é clicado na tabela. Preenche os campos com os dados do cliente selecionado.
     private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
         int index = tabelaCliente.getSelectedRow();
         TableModel model = tabelaCliente.getModel();
@@ -313,6 +322,7 @@ public class GerenciarPedido extends javax.swing.JFrame {
         txtEmailCliente.setText(email);
     }//GEN-LAST:event_tabelaClienteMouseClicked
 
+// Método acionado quando um produto é clicado na tabela. Preenche os campos com os dados do produto selecionado.
     private void tabelaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMouseClicked
         int index = tabelaProduto.getSelectedRow();
         TableModel model = tabelaProduto.getModel();
@@ -329,6 +339,8 @@ public class GerenciarPedido extends javax.swing.JFrame {
         txtDescricaoProduto.setText(descricaoProduto);
     }//GEN-LAST:event_tabelaProdutoMouseClicked
 
+// Evento de ação do botão "Adicionar ao Carrinho"
+// Verifica a quantidade, o estoque e adiciona o produto ao carrinho se as condições forem atendidas
     private void btnAdicionarAoCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAoCarrinhoActionPerformed
         // Validação de produto selecionado e quantidade
         if (produtoPk == 0 || txtQuantidadeProduto.getText().isEmpty()) {
@@ -416,7 +428,7 @@ public class GerenciarPedido extends javax.swing.JFrame {
                 SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
                 Calendar cal = Calendar.getInstance();
                 PdfWriter.getInstance(doc, new FileOutputStream(UtilidadeInventario.caminhoNota + "" + idPedido + ".pdf"));
-                
+
                 doc.open();
                 Paragraph nomeProjeto = new Paragraph("                                                                         Venda Fácil\n");
                 doc.add(nomeProjeto);
@@ -431,45 +443,45 @@ public class GerenciarPedido extends javax.swing.JFrame {
                 PdfPCell precoCelula = new PdfPCell(new Phrase("Preço por unidade"));
                 PdfPCell quantidadeCelula = new PdfPCell(new Phrase("Quantidade"));
                 PdfPCell precoSubTotalCelula = new PdfPCell(new Phrase("Valor Sub Total"));
-                
-                BaseColor backgroundColor = new BaseColor(255,204,51);
+
+                BaseColor backgroundColor = new BaseColor(255, 204, 51);
                 nomeCelula.setBackgroundColor(backgroundColor);
                 descricaoCelula.setBackgroundColor(backgroundColor);
                 precoCelula.setBackgroundColor(backgroundColor);
                 quantidadeCelula.setBackgroundColor(backgroundColor);
                 precoSubTotalCelula.setBackgroundColor(backgroundColor);
-                
+
                 tb1.addCell(nomeCelula);
                 tb1.addCell(descricaoCelula);
                 tb1.addCell(precoCelula);
                 tb1.addCell(quantidadeCelula);
                 tb1.addCell(precoSubTotalCelula);
-                
-                for(int i=0; i<tabelaCarrinho.getRowCount(); i++){
+
+                for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
                     tb1.addCell(tabelaCarrinho.getValueAt(i, 1).toString());
                     tb1.addCell(tabelaCarrinho.getValueAt(i, 4).toString());
                     tb1.addCell(tabelaCarrinho.getValueAt(i, 3).toString());
                     tb1.addCell(tabelaCarrinho.getValueAt(i, 2).toString());
                     tb1.addCell(tabelaCarrinho.getValueAt(i, 5).toString());
                 }
-                
+
                 doc.add(tb1);
                 doc.add(linhaEstrela);
                 Paragraph mensagemObrigado = new Paragraph("                                                                         Obrigado, volte sempre!");
                 doc.add(mensagemObrigado);
                 abrirPDF.abrirPorId(idPedido);
-                
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
             doc.close();
-           
+
             setVisible(false);
             new GerenciarPedido().setVisible(true);
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Por favor adicione um produto ou selecione um cliente");
         }
-        
+
     }//GEN-LAST:event_btnSalvarDetalhesPedidoActionPerformed
 
     /**
