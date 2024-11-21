@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package bancoDeDados;
 
-/**
- *
- * @author cnoel
- */
 public class UtilidadeInventario {
-    public static String caminhoNota = "D:\\";
+    public static String caminhoNota = "C:\\Notas Venda Facil\\";
 }

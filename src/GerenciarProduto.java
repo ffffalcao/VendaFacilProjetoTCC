@@ -5,14 +5,6 @@ import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-/**
- *
- * @author cnoel
- */
 public class GerenciarProduto extends javax.swing.JFrame {
 
     private int produtoPk = 0;
@@ -38,13 +30,33 @@ public class GerenciarProduto extends javax.swing.JFrame {
     }
 
     private boolean validarCampos(String formType) {
-        if (formType.equals("edit") && !txtNome.getText().equals("") && !txtPreco.getText().equals("") && !txtDescricao.getText().equals("")) {
-            return false;
-        } else if (formType.equals("new") && !txtNome.getText().equals("") && !txtPreco.getText().equals("") && !txtDescricao.getText().equals("") && !txtQuantidade.getText().equals("")) {
-            return false;
-        } else {
+        // Verifica se os campos obrigatórios estão preenchidos
+        if (txtNome.getText().trim().isEmpty()
+                || txtPreco.getText().trim().isEmpty()
+                || txtDescricao.getText().trim().isEmpty()
+                || (formType.equals("new") && txtQuantidade.getText().trim().isEmpty())) {
+            JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios.");
             return true;
         }
+
+        // Verifica se o preço é um número válido com até duas casas decimais
+        if (!txtPreco.getText().matches("^\\d+(\\.\\d{1,2})?$")) {
+            JOptionPane.showMessageDialog(null, "O preço deve ser um número válido (ex.: 5.50).");
+            return true;
+        }
+
+        // Se o formulário é "new", verifica se a quantidade é um número válido
+        if (formType.equals("new")) {
+            try {
+                Integer.parseInt(txtQuantidade.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "A quantidade deve ser um número inteiro válido.");
+                return true;
+            }
+        }
+
+        // Todos os campos são válidos
+        return false;
     }
 
     private void limparCampos() {
@@ -204,7 +216,15 @@ public class GerenciarProduto extends javax.swing.JFrame {
             String query = ("SELECT * FROM produto inner join categoria on produto.categoria_fk = categoria.categoria_pk");
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                model.addRow(new Object[]{rs.getString("produto_pk"), rs.getString("nome"), rs.getString("quantidade"), rs.getString("preco"), rs.getString("descricao"), rs.getString("categoria_fk"), rs.getString(8)});
+                model.addRow(new Object[]{
+                    rs.getString("produto_pk"),
+                    rs.getString("nome"),
+                    rs.getString("quantidade"),
+                    String.format("%.2f", rs.getDouble("preco")),
+                    rs.getString("descricao"),
+                    rs.getString("categoria_fk"),
+                    rs.getString(8)
+                });
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -215,7 +235,8 @@ public class GerenciarProduto extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nome = txtNome.getText();
         String quantidade = txtQuantidade.getText();
-        String preco = txtPreco.getText();
+        String precoStr = txtPreco.getText().replace(",", ".");
+        double preco = Double.parseDouble(precoStr);
         String descricao = txtDescricao.getText();
         String categoria = (String) comboBoxCategoria.getSelectedItem();
         String categoriaId[] = categoria.split("-", 0);
@@ -227,7 +248,7 @@ public class GerenciarProduto extends javax.swing.JFrame {
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, nome);
                 ps.setString(2, quantidade);
-                ps.setString(3, preco);
+                ps.setDouble(3, preco);
                 ps.setString(4, descricao);
                 ps.setString(5, categoriaId[0]);
                 ps.executeUpdate();
@@ -294,7 +315,8 @@ public class GerenciarProduto extends javax.swing.JFrame {
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         String nome = txtNome.getText();
         String quantidade = txtQuantidade.getText();
-        String preco = txtPreco.getText();
+        String precoStr = txtPreco.getText().replace(",", ".");
+        double preco = Double.parseDouble(precoStr);
         String descricao = txtDescricao.getText();
         String categoria = (String) comboBoxCategoria.getSelectedItem();
         String categoriaId[] = categoria.split("-", 0);
@@ -309,7 +331,7 @@ public class GerenciarProduto extends javax.swing.JFrame {
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, nome);
                 ps.setInt(2, quantidadeTotal);
-                ps.setString(3, preco);
+                ps.setDouble(3, preco);
                 ps.setString(4, descricao);
                 ps.setString(5, categoriaId[0]);
                 ps.setInt(6, produtoPk);

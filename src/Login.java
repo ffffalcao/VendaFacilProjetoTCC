@@ -10,14 +10,14 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     private void autenticar(){
-        String email = txtUsuario.getText();
+        String usuario = txtUsuario.getText();
         String senha = txtSenha.getText();
         boolean loginSucesso = false;
 
         try (Connection connection = ProvedorConexao.connect();){
-            String sql = "SELECT * FROM appusuario WHERE email = ? AND senha = ? AND status = 'Ativo'";
+            String sql = "SELECT * FROM appusuario WHERE nome = ? AND senha = ? AND status = 'Ativo'";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, email);
+            pst.setString(1, usuario);
             pst.setString(2, senha);
 
             ResultSet rs = pst.executeQuery();
